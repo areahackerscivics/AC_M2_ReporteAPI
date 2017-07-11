@@ -1,0 +1,3 @@
+*.pyc
+
+conexionMongo.py
