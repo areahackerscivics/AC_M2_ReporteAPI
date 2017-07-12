@@ -78,14 +78,5 @@ def evolucion():
     return dumps(result)
 
 
-'''
- # JSON format response
-@route('/book/:id', method='GET')
-def book():
-
-    return {'id':id, 'name':'A Game of Thrones: A Song of Ice and Fire'}
-'''
-
-
 
 bottle.run(host='localhost', port=8080)
