@@ -20,8 +20,30 @@ from BLL.topPalabrasBLL import getTopPalabrasBLL
 from BLL.topHashtagssBLL import getTopHashtagsBLL
 
 
+
+
+
+# the decorator
+def enable_cors(fn):
+    def _enable_cors(*args, **kwargs):
+        # set CORS headers
+        response.headers['Access-Control-Allow-Origin'] = '*'
+        response.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, OPTIONS'
+        response.headers['Access-Control-Allow-Headers'] = 'Origin, Accept, Content-Type, X-Requested-With, X-CSRF-Token'
+
+        if bottle.request.method != 'OPTIONS':
+            # actual request; reply with the actual response
+            return fn(*args, **kwargs)
+
+    return _enable_cors
+
+
+app = bottle.app()
+
+
 # Query string is /distribucion?anyo=2017&mes=01
-@route('/distribucion', method='GET')
+@app.route('/distribucion', method='GET')
+@enable_cors
 def distribucion():
     response.content_type = 'application/json'
 
@@ -41,7 +63,8 @@ def distribucion():
 
 
 
-@route('/evolucion', method='GET')
+@app.route('/evolucion', method='GET')
+@enable_cors
 def evolucion():
     response.content_type = 'application/json'
 
@@ -54,7 +77,8 @@ def evolucion():
     return dumps(result)
 
 
-@route('/toppalabras', method='GET')
+@app.route('/toppalabras', method='GET')
+@enable_cors
 def evolucion():
     response.content_type = 'application/json'
 
@@ -66,7 +90,8 @@ def evolucion():
     return dumps(result)
 
 
-@route('/tophashtags', method='GET')
+@app.route('/tophashtags', method='GET')
+@enable_cors
 def evolucion():
     response.content_type = 'application/json'
 
@@ -79,4 +104,5 @@ def evolucion():
 
 
 
-bottle.run(host='localhost', port=8080)
+app.run(port=8080)
+#bottle.run(host='localhost', port=8080)

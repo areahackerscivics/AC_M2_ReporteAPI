@@ -47,7 +47,7 @@ def getDistribucionBLL(anyo, mes):
 
     result = []
 
-    keys = dicc.keys()
+    keys = list(dicc.keys())
     keys.sort()
     for key in keys:
         numTweets = dicc[key]
