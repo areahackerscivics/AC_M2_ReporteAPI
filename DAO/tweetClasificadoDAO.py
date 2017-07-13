@@ -18,8 +18,8 @@ def getTweetsClasificados(anyo, mes):
     client = MongoClient(conexion)
     tdb = getDB()
     db = client[tdb]
-    coleccion = getCollEntrenado()
-    tweetsEntrenados = db[coleccion]
+    coleccion = getCollTweetsClas()
+    tweetsClasificados = db[coleccion]
 
     ini = anyo + '-' + mes + '-01 00:00:00'
     ini=datetime.strptime(ini,"%Y-%m-%d %H:%M:%S")
@@ -27,7 +27,7 @@ def getTweetsClasificados(anyo, mes):
     fin = anyo + '-' + mes + '-31 23:59:59'
     fin=datetime.strptime(fin,"%Y-%m-%d %H:%M:%S")
 
-    tw = tweetsEntrenados.find({
+    tw = tweetsClasificados.find({
                                         'fechaTweet':{
                                             '$gte': ini,
                                             '$lt':  fin

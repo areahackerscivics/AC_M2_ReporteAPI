@@ -40,7 +40,7 @@ def getDistribucionBLL(anyo, mes):
     }
 
     for tweet in tweets:
-        categoria = (str(tweet['categoria'].encode('utf-8')))
+        categoria = tweet['categoria']
         dicc[categoria] = dicc.get(categoria, 0) + 1
 
     totalTw = sum(dicc.values())
@@ -51,7 +51,11 @@ def getDistribucionBLL(anyo, mes):
     keys.sort()
     for key in keys:
         numTweets = dicc[key]
-        porTweets = numTweets/float(totalTw)
+        print(numTweets)
+        if totalTw == 0:
+            porTweets = 0.0
+        else:
+            porTweets = numTweets/float(totalTw)
         result.append( {'categoria': key, 'numTweets': numTweets, 'porTweets': porTweets} )
 
     return result

@@ -52,13 +52,6 @@ def distribucion():
 
     result = getDistribucionBLL(anyo, mes)
 
-    '''
-    [
-        {'categoria': key, 'numTweets': numTweets, 'porTweets': porTweets},
-        {'categoria': key, 'numTweets': numTweets, 'porTweets': porTweets},
-        ...
-    ]
-    '''
     return dumps(result)
 
 
