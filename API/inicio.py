@@ -9,8 +9,10 @@ parent_dir=os.getcwd()
 path= os.path.dirname(parent_dir)
 sys.path.append(path)
 
+import json
+
 import bottle
-from bottle import route,run,request, response
+from bottle import route,run,request, response, static_file
 
 from json import dumps
 
@@ -18,6 +20,7 @@ from BLL.distribucionBLL import getDistribucionBLL
 from BLL.evolucionBLL import getEvolucionBLL
 from BLL.topPalabrasBLL import getTopPalabrasBLL
 from BLL.topHashtagssBLL import getTopHashtagsBLL
+from BLL.catalogoBLL import getCatalogoBLL
 
 
 
@@ -28,7 +31,8 @@ def enable_cors(fn):
     def _enable_cors(*args, **kwargs):
         # set CORS headers
         response.headers['Access-Control-Allow-Origin'] = '*'
-        response.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, OPTIONS'
+        #response.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, OPTIONS'
+        response.headers['Access-Control-Allow-Methods'] = 'GET'
         response.headers['Access-Control-Allow-Headers'] = 'Origin, Accept, Content-Type, X-Requested-With, X-CSRF-Token'
 
         if bottle.request.method != 'OPTIONS':
@@ -72,7 +76,7 @@ def evolucion():
 
 @app.route('/toppalabras', method='GET')
 @enable_cors
-def evolucion():
+def palabras():
     response.content_type = 'application/json'
 
     anyo = request.query.anyo
@@ -85,7 +89,7 @@ def evolucion():
 
 @app.route('/tophashtags', method='GET')
 @enable_cors
-def evolucion():
+def hashtags():
     response.content_type = 'application/json'
 
     anyo = request.query.anyo
@@ -94,6 +98,40 @@ def evolucion():
     result = getTopHashtagsBLL(anyo, mes)
 
     return dumps(result)
+
+
+
+@app.route('/catalogo', method='GET')
+@enable_cors
+def datasets():
+    response.content_type = 'application/json'
+
+    result = getCatalogoBLL()
+
+    return dumps(result)
+
+
+#@app.route('/descarga/<filename:path>', method='GET')
+@app.route('/descarga', method='GET')
+@enable_cors
+#def descarga(filename):
+def descarga():
+    anyo = request.query.anyo
+    mes = request.query.mes
+
+    filename = 'tweets_' + anyo + '_' + mes + '.json'
+
+    if os.path.isfile("../FILES/"+filename):
+        return static_file(filename, root='../FILES/', download=filename)
+    else:
+        result = getDistribucionBLL(anyo, mes)
+
+        with open('../FILES/'+filename, 'wb') as fichero:
+            json.dump(result, fichero)
+
+        return static_file(filename, root='../FILES/', download=filename)
+
+
 
 
 

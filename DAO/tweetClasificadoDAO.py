@@ -12,6 +12,8 @@ from DAO.conexionMongo import *
 from datetime import datetime
 import dateutil.parser
 
+import calendar
+
 def getTweetsClasificados(anyo, mes):
 
     conexion = getConexion()
@@ -21,10 +23,17 @@ def getTweetsClasificados(anyo, mes):
     coleccion = getCollTweetsClas()
     tweetsClasificados = db[coleccion]
 
+
+    anyoA = int(anyo)
+    mesA = int(mes)
+
+    diasMes = int( calendar.monthrange(anyoA, mesA)[1] )
+
+
     ini = anyo + '-' + mes + '-01 00:00:00'
     ini=datetime.strptime(ini,"%Y-%m-%d %H:%M:%S")
 
-    fin = anyo + '-' + mes + '-31 23:59:59'
+    fin = anyo + '-' + mes + '-'+ str(diasMes) + ' 23:59:59'
     fin=datetime.strptime(fin,"%Y-%m-%d %H:%M:%S")
 
     tw = tweetsClasificados.find({

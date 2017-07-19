@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# encoding: utf-8
 
 
 import sys, os
@@ -21,16 +23,6 @@ palabrasIgnorar = ['ajuntamentvlc', 'http', 'https', 'www', 'i', 'q', 'd']
 def getTopPalabrasBLL(anyo, mes):
 
     tweets = getTweetsClasificados(anyo, mes)
-
-    '''
-        Para capturar menciones @ , hashtags # , y webs http://...
-        ((RT)|(@[a-z:]*)|(http:\/\/[a-z.]*)|(#[a-zA-Z]*)|( )|(!))|(:D)
-
-        Para capturar solo las palabras del tweet
-        (?<![#@])\b\w+\b
-
-        [a-zñáéíóúàèìòù]
-    '''
 
     '''
     Esta expresión regular busca evitar las palabras con hashtags y menciones (#@) y
