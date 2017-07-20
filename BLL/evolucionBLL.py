@@ -4,6 +4,7 @@
 import sys, os
 import numpy as np
 import datetime
+import calendar
 parent_dir=os.getcwd()
 path= os.path.dirname(parent_dir)
 sys.path.append(path)
@@ -12,7 +13,7 @@ from DAO.tweetClasificadoDAO import *
 
 def getEvolucionBLL(anyo, mes):
 
-    tweets = getTweetsClasificados(anyo, mes)
+    tweets = getTweetsClasificadosdias(anyo, mes)
 
     dicc = {
         'Ciencia y tecnología': {
@@ -153,25 +154,20 @@ def getEvolucionBLL(anyo, mes):
 
     for tweet in tweets:
         categoria = (str(tweet['categoria'].encode('utf-8')))
+        dia=tweet['dia']
+        total=tweet['total']
+        dicc[categoria][dia] = total
 
-        #Faltara cambiar este campo
-        fecha = tweet['fechaTweet']
-        dia = '{:02d}'.format(fecha.day)
-
-        dicc[categoria][dia] = dicc[categoria][dia] + 1
-
-
-    result = []
-
+    result = {}
+    lista=[]
     keys = dicc.keys()
     keys.sort()
     kDias = dicc['Comercio'].keys()
     kDias.sort()
     for categoria in keys:
-        listaDias = []
+        listaDias = [] #v2
         for dia in kDias:
-            listaDias.append( dicc[categoria][dia] )
-
-        result.append( {'categoria': categoria, 'tweets': listaDias} )
-
+            listaDias.append( dicc[categoria][dia] )#v2
+            total=dicc[categoria][dia]
+        result[categoria]=listaDias
     return result
