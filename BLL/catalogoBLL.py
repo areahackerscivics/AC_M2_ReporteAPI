@@ -12,16 +12,26 @@ import xml.dom.minidom
 from xml.dom.minidom import parse
 
 def getCatalogoBLL():
+    """Devuelve el número de datasets por categoría.
+
+     Retorna  un array con el nombre de la categoría con el número de
+     datasets publicados por el ayuntamiento de valencia por categorías
+
+     Nota: Se detectó que puede existir el mismo dataset en más de
+     una categoría
+    """
 
     DOMTree = xml.dom.minidom.parse('../FILES/catalogo.rdf')
 
     coleccion = DOMTree.documentElement
 
-    #temas = coleccion.getElementsByTagName('dcat:theme')
+    #Se extrae el nombre de cada uno de los datasets
     datasets = coleccion.getElementsByTagName('dcat:dataset')
 
     print str(len(datasets))
 
+    #Se inicializa el diccionario con los nombres de las temas (categorías)
+    #como aparecen en el xml
     dicc = {
         'ciencia tecnologia': 0,
         'comercio': 0,

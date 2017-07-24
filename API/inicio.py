@@ -25,13 +25,26 @@ from BLL.catalogoBLL import getCatalogoBLL
 
 
 
-
 # the decorator
 def enable_cors(fn):
     def _enable_cors(*args, **kwargs):
-        # set CORS headers
+        """Habilitar solicitudes HTTP de sitios cruzados
+
+            Permite a los servidores describir el conjunto de orígenes
+            que tienen permiso de leer la información usando un explorador
+            web.
+
+            Access-Control-Allow-Origin:Específica una URI que puede tener
+            acceso al recurso
+
+            Access-Control-Allow-Methods:Específica el método o los métodos
+            permitidos cuando se asigna un recurso.
+
+            Access-Control-Allow-Headers:Usado en respuesta a una solicitud
+            verificada para indicar cual encabezado HTTP puede ser usado
+            cuando se realiza la solicitud real.
+        """        # set CORS headers
         response.headers['Access-Control-Allow-Origin'] = '*'
-        #response.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, OPTIONS'
         response.headers['Access-Control-Allow-Methods'] = 'GET'
         response.headers['Access-Control-Allow-Headers'] = 'Origin, Accept, Content-Type, X-Requested-With, X-CSRF-Token'
 
@@ -49,6 +62,24 @@ app = bottle.app()
 @app.route('/distribucion', method='GET')
 @enable_cors
 def distribucion():
+    """Recupera un json con la distribución de tweets por categoría.
+
+     GET devuelve una representación en JSON y un código de respuesta HTTP de 200 (OK).
+     En caso de error, devuelve un 404 (NO ENCONTRADO) o 400 (BAD REQUEST).
+
+     Ejemplo: http://localhost:8080/distribucion?anyo=2017&mes=07
+
+    Respuesta:
+    Status Code: 200 OK
+    Access-Control-Allow-Headers: Origin, Accept, Content-Type, X-Requested-With, X-CSRF-Token
+    Access-Control-Allow-Methods: GET
+    Access-Control-Allow-Origin: *
+    Content-Length: 1455
+    Content-Type: application/json
+    Date: Mon, 24 Jul 2017 14:13:16 GMT
+    Server: WSGIServer/0.1 Python/2.7.11
+
+    """
     response.content_type = 'application/json'
 
     anyo = request.query.anyo
@@ -63,6 +94,24 @@ def distribucion():
 @app.route('/evolucion', method='GET')
 @enable_cors
 def evolucion():
+    """Recupera un json con la evolución de tweets por categoría.
+
+     GET devuelve una representación en JSON y un código de respuesta HTTP de 200 (OK).
+     En caso de error, devuelve un 404 (NO ENCONTRADO) o 400 (BAD REQUEST).
+
+     Ejemplo: http://localhost:8080/evolucion?anyo=2017&mes=03
+
+    Respuesta:
+    Status Code: 200 OK
+    Access-Control-Allow-Headers: Origin, Accept, Content-Type, X-Requested-With, X-CSRF-Token
+    Access-Control-Allow-Methods: GET
+    Access-Control-Allow-Origin: *
+    Content-Length: 2493
+    Content-Type: application/json
+    Date: Mon, 24 Jul 2017 14:18:33 GMT
+    Server: WSGIServer/0.1 Python/2.7.11
+
+    """
     response.content_type = 'application/json'
 
     anyo = request.query.anyo
@@ -77,6 +126,8 @@ def evolucion():
 @app.route('/toppalabras', method='GET')
 @enable_cors
 def palabras():
+    """Método no usado en esta version .
+    """
     response.content_type = 'application/json'
 
     anyo = request.query.anyo
@@ -90,6 +141,8 @@ def palabras():
 @app.route('/tophashtags', method='GET')
 @enable_cors
 def hashtags():
+    """Método no usado en esta version .
+    """
     response.content_type = 'application/json'
 
     anyo = request.query.anyo
@@ -104,6 +157,16 @@ def hashtags():
 @app.route('/catalogo', method='GET')
 @enable_cors
 def datasets():
+    """Recupera un json con el número de datasets publicados por categoría.
+
+     GET devuelve una representación en JSON y un código de respuesta HTTP de 200 (OK).
+     En caso de error, devuelve un 404 (NO ENCONTRADO) o 400 (BAD REQUEST), del catálogo
+     de datos abiertos publicado por el ayuntamiento de valencia.
+
+     Ejemplo: http://localhost:8080//catalogo?anyo=2017&mes=07
+
+    """
+
     response.content_type = 'application/json'
 
     result = getCatalogoBLL()
