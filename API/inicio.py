@@ -121,35 +121,35 @@ def evolucion():
 
     return dumps(result)
 
-
-@app.route('/toppalabras', method='GET')
-@enable_cors
-def palabras():
-    """Método no usado en esta version .
-    """
-    response.content_type = 'application/json'
-
-    anyo = request.query.anyo
-    mes = request.query.mes
-
-    result = getTopPalabrasBLL(anyo, mes)
-
-    return dumps(result)
-
-
-@app.route('/tophashtags', method='GET')
-@enable_cors
-def hashtags():
-    """Método no usado en esta version .
-    """
-    response.content_type = 'application/json'
-
-    anyo = request.query.anyo
-    mes = request.query.mes
-
-    result = getTopHashtagsBLL(anyo, mes)
-
-    return dumps(result)
+# No se usará en esta version
+# @app.route('/toppalabras', method='GET')
+# @enable_cors
+# def palabras():
+#     """Método no usado en esta version .
+#     """
+#     response.content_type = 'application/json'
+#
+#     anyo = request.query.anyo
+#     mes = request.query.mes
+#
+#     result = getTopPalabrasBLL(anyo, mes)
+#
+#     return dumps(result)
+#
+#
+# @app.route('/tophashtags', method='GET')
+# @enable_cors
+# def hashtags():
+#     """Método no usado en esta version .
+#     """
+#     response.content_type = 'application/json'
+#
+#     anyo = request.query.anyo
+#     mes = request.query.mes
+#
+#     result = getTopHashtagsBLL(anyo, mes)
+#
+#     return dumps(result)
 
 
 
