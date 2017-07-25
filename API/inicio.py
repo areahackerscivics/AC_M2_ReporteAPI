@@ -17,8 +17,8 @@ from bottle import route,run,request, response, static_file
 
 from BLL.distribucionBLL import getDistribucionBLL
 from BLL.evolucionBLL import getEvolucionBLL
-from BLL.topPalabrasBLL import getTopPalabrasBLL
-from BLL.topHashtagssBLL import getTopHashtagsBLL
+# from BLL.topPalabrasBLL import getTopPalabrasBLL
+# from BLL.topHashtagssBLL import getTopHashtagsBLL
 from BLL.catalogoBLL import getCatalogoBLL
 
 
