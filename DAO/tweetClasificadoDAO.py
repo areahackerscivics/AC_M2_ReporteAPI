@@ -10,7 +10,6 @@ from pymongo import MongoClient
 from DAO.conexionMongo import *
 
 from datetime import datetime
-import dateutil.parser
 
 
 def getTweetsClasificados(anyo, mes):
