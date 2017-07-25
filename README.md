@@ -43,7 +43,7 @@ Como sistema de almacenamiento se usa MongoDB que es una base de datos NoSQL que
 }
 
 ```
-Es importante que los nombres de las claves sean iguales como se muestra en el ejemplo anterior debido a que  dentro del código se hace referencia a esos nombres.  
+Es importante que los nombres de las claves sean iguales como se muestra en el ejemplo anterior, debido a que  dentro del código se hace referencia a esos nombres.  
 
 En el archivo **ConexionMongoPublico.py** del proyecto se indica el nombre de la colección y la base de datos con la que se trabajó, si desea poner otro nombre a la base de datos o a la colección es necesario que lo actualice también en ese archivo. Finalmente debe renombrar el archivo con el nombre  **ConexionMongo.py** .
 
@@ -55,9 +55,12 @@ Dentro de la carpeta API se encuentra el archivo de inicio del programa que perm
  
 Los servicios habilitados son:
 
-**Distribución:**http://localhost:8080/distribucion?anyo=2017&mes=07
-**Evolución:**http://localhost:8080/evolucion?anyo=2017&mes=03
-**Catálogo:**http://localhost:8080//catalogo?anyo=2017&mes=07
+**Distribución:** http://localhost:8080/distribucion?anyo=2017&mes=07  
+
+**Evolución:** http://localhost:8080/evolucion?anyo=2017&mes=03  
+
+**Catálogo:** http://localhost:8080//catalogo?anyo=2017&mes=07  
+
 
 ## Autores
 
