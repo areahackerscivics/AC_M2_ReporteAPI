@@ -2,7 +2,6 @@
 # encoding: utf-8
 import sys, os
 import calendar
-import numpy as np
 parent_dir=os.getcwd()
 path= os.path.dirname(parent_dir)
 sys.path.append(path)

@@ -3,7 +3,6 @@
 
 
 import sys, os
-import numpy as np
 import datetime
 parent_dir=os.getcwd()
 path= os.path.dirname(parent_dir)
