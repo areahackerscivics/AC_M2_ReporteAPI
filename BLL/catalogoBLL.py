@@ -11,16 +11,18 @@ sys.path.append(path)
 import xml.dom.minidom
 from xml.dom.minidom import parse
 
-def getCatalogoBLL():
+import urllib
+import datetime
 
-    DOMTree = xml.dom.minidom.parse('../FILES/catalogo.rdf')
+
+def calculoCatalogo(filename):
+
+    DOMTree = xml.dom.minidom.parse('../FILES/'+filename)
 
     coleccion = DOMTree.documentElement
 
     #temas = coleccion.getElementsByTagName('dcat:theme')
     datasets = coleccion.getElementsByTagName('dcat:dataset')
-
-    print str(len(datasets))
 
     dicc = {
         'ciencia tecnologia': 0,
@@ -64,3 +66,56 @@ def getCatalogoBLL():
         result.append( {'categoria': categoria, 'numDatasets': dicc[categoria]} )
 
     return result
+
+
+def getCatalogoBLL(anyo, mes):
+
+    filename = 'catalogo_' + anyo + '_' + mes + '.rdf'
+
+
+    fecha = datetime.datetime.now()
+    anyoAct = fecha.strftime ("%Y")
+    mesAct =  fecha.strftime ("%m")
+
+    if os.path.isfile("../FILES/"+filename):
+        return calculoCatalogo(filename)
+    else:
+        if ( anyo==anyoAct and mes==mesAct ):
+            testfile = urllib.URLopener()
+            testfile.retrieve("http://gobiernoabierto.valencia.es/wp-content/themes/viavansi-ogov/proxyFile.php?url=http://gobiernoabierto.valencia.es/va/catalogo.rdf", '../FILES/'+filename)
+
+            return calculoCatalogo(filename)
+
+        else:
+            dicc = {
+                'ciencia tecnologia': 0,
+                'comercio': 0,
+                'cultura ocio': 0,
+                'demografia': 0,
+                'deporte': 0,
+                'economia': 0,
+                'educacion': 0,
+                'empleo': 0,
+                'energia': 0,
+                'hacienda': 0,
+                'industria': 0,
+                'legislacion justicia': 0,
+                'medio ambiente': 0,
+                'medio rural': 0,
+                'salud': 0,
+                'sector publico': 0,
+                'seguridad': 0,
+                'sociedad bienestar': 0,
+                'transporte': 0,
+                'turismo': 0,
+                'urbanismo infraestructuras': 0,
+                'vivienda': 0
+            }
+
+            result = []
+            keys = dicc.keys()
+            keys.sort()
+            for categoria in keys:
+                result.append( {'categoria': categoria, 'numDatasets': dicc[categoria]} )
+
+            return result

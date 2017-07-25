@@ -10,11 +10,11 @@ path= os.path.dirname(parent_dir)
 sys.path.append(path)
 
 import json
+from json import dumps
 
 import bottle
 from bottle import route,run,request, response, static_file
 
-from json import dumps
 
 from BLL.distribucionBLL import getDistribucionBLL
 from BLL.evolucionBLL import getEvolucionBLL
@@ -106,9 +106,14 @@ def hashtags():
 def datasets():
     response.content_type = 'application/json'
 
-    result = getCatalogoBLL()
+    anyo = request.query.anyo
+    mes = request.query.mes
 
+    result = getCatalogoBLL(anyo, mes)
     return dumps(result)
+
+
+
 
 
 #@app.route('/descarga/<filename:path>', method='GET')
