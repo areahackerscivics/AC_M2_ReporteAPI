@@ -11,9 +11,20 @@ sys.path.append(path)
 from DAO.tweetClasificadoDAO import *
 
 def getDistribucionBLL(anyo, mes):
+    """Devuelve el número de tweets por categoría.
 
+     Retorna  un array con el  número de tweets por categoría, además
+     de su porcentaje. En su proceso llama al  método que está en el DAO
+
+     Parámetros:
+     anyo: Año en el que fue creado el Tweet
+     mes: Mes en el que fue creado el Tweet
+
+    """
+    #Se llama la DAO de los tweets clasificados
     tweets = getTweetsClasificados(anyo, mes)
 
+    #Se inicializa el diccionario con los nombres de las categorías
     dicc = {
         'Ciencia y tecnología': 0,
         'Comercio': 0,
@@ -41,8 +52,10 @@ def getDistribucionBLL(anyo, mes):
 
     for tweet in tweets:
         categoria = str(tweet['categoria'].encode('UTF-8'))
+        #se realiza la suma de los tweets por categoría
         dicc[categoria] = dicc.get(categoria, 0) + 1
 
+    #Se realiza la suma  total de los tweets clasificados
     totalTw = sum(dicc.values())
 
     result = []
@@ -53,9 +66,8 @@ def getDistribucionBLL(anyo, mes):
         if totalTw == 0:
             porTweets = 0.0
         else:
+            #Se calcula el porcentaje por categoría
             porTweets = (numTweets/float(totalTw))*100
         result.append( {'categoria': key, 'numTweets': numTweets, 'porTweets': porTweets} )
-
-    #result.append( {'categoria': 'TOTAL', 'numTweets': totalTw} )
 
     return result

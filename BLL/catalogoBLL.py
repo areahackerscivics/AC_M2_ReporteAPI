@@ -21,9 +21,12 @@ def calculoCatalogo(filename):
 
     coleccion = DOMTree.documentElement
 
-    #temas = coleccion.getElementsByTagName('dcat:theme')
+    #Se extrae el nombre de cada uno de los datasets
     datasets = coleccion.getElementsByTagName('dcat:dataset')
 
+
+    #Se inicializa el diccionario con los nombres de las temas (categorías)
+    #como aparecen en el xml
     dicc = {
         'ciencia tecnologia': 0,
         'comercio': 0,
@@ -68,7 +71,16 @@ def calculoCatalogo(filename):
     return result
 
 
+
 def getCatalogoBLL(anyo, mes):
+    """Devuelve el número de datasets por categoría.
+
+     Retorna  un array con el nombre de la categoría con el número de
+     datasets publicados por el ayuntamiento de valencia por categorías
+
+     Nota: Se detectó que puede existir el mismo dataset en más de
+     una categoría
+    """
 
     filename = 'catalogo_' + anyo + '_' + mes + '.rdf'
 
@@ -77,16 +89,21 @@ def getCatalogoBLL(anyo, mes):
     anyoAct = fecha.strftime ("%Y")
     mesAct =  fecha.strftime ("%m")
 
+    #Si el fichero existe, lo devuelve.
     if os.path.isfile("../FILES/"+filename):
         return calculoCatalogo(filename)
     else:
         if ( anyo==anyoAct and mes==mesAct ):
+            #Si el año y el mes actuales son los mismos que los de la petición, nos descargamos el nuevo rdf de la web del ayuntamiento y realizamos el cálculo.
             testfile = urllib.URLopener()
             testfile.retrieve("http://gobiernoabierto.valencia.es/wp-content/themes/viavansi-ogov/proxyFile.php?url=http://gobiernoabierto.valencia.es/va/catalogo.rdf", '../FILES/'+filename)
 
             return calculoCatalogo(filename)
 
         else:
+            #Si no coinciden, nos estan pidiendo datos de catálogos pasados, los cuales no disponemos.
+            #Por lo que simplemente, se le devuelve una lista con valores a 0 para que el treeMap en la web
+            #muestre "No información disponible"
             dicc = {
                 'ciencia tecnologia': 0,
                 'comercio': 0,

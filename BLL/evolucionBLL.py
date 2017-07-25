@@ -8,13 +8,30 @@ import calendar
 parent_dir=os.getcwd()
 path= os.path.dirname(parent_dir)
 sys.path.append(path)
-
+import operator
 from DAO.tweetClasificadoDAO import *
 
 def getEvolucionBLL(anyo, mes):
+    """Devuelve la evolución de los tweets a lo largo del mes.
 
+     Retorna  un diccionario con el  número de tweets por categoría
+     En su proceso llama al  método que está en el DAO
+
+     Parámetros:
+     anyo: Año en el que fue creado el Tweet
+     mes: Mes en el que fue creado el Tweet
+
+     Nota:
+     El return debe tener la forma {"Turismo": [x,x,x....n],..... "Seguridad": [x,..n]}
+     porque es lo que se esta esperando como entrada en el Javascript
+
+    """
+
+    #Se llama la DAO de los tweets clasificados con los calculos hechos
     tweets = getTweetsClasificadosdias(anyo, mes)
 
+    #Se inicializa el diccionario con la clave= nombre de la categoría y valor otro
+    #diccionario con el dia del mes y el valor del dia en 0.
     dicc = {
         'Ciencia y tecnología': {
             '01': 0, '02': 0, '03': 0, '04': 0, '05': 0, '06': 0, '07': 0, '08': 0, '09': 0,
@@ -156,6 +173,9 @@ def getEvolucionBLL(anyo, mes):
         categoria = (str(tweet['categoria'].encode('utf-8')))
         dia=tweet['dia']
         total=tweet['total']
+
+        #se reemplaza en el diccionario el valor de cada día con el que está en
+        #la consulta
         dicc[categoria][dia] = total
 
     result = {}
@@ -165,9 +185,10 @@ def getEvolucionBLL(anyo, mes):
     kDias = dicc['Comercio'].keys()
     kDias.sort()
     for categoria in keys:
-        listaDias = [] #v2
+        listaDias = []
         for dia in kDias:
-            listaDias.append( dicc[categoria][dia] )#v2
-            total=dicc[categoria][dia]
+            #Se añade el valor (# de tweets x dias) a la lista de dias
+            listaDias.append( dicc[categoria][dia] )
         result[categoria]=listaDias
+
     return result
