@@ -30,7 +30,7 @@ def getEvolucionBLL(anyo, mes):
     tweets = getTweetsClasificadosdias(anyo, mes)
 
     #Se inicializa el diccionario con la clave= nombre de la categoría y valor otro
-    #diccionario con el dia de la semana y el valor del dia en 0.
+    #diccionario con el dia del mes y el valor del dia en 0.
     dicc = {
         'Ciencia y tecnología': {
             '01': 0, '02': 0, '03': 0, '04': 0, '05': 0, '06': 0, '07': 0, '08': 0, '09': 0,
