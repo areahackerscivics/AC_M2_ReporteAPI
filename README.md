@@ -54,7 +54,7 @@ Los servicios habilitados son:
 
 **Catálogo:** http://localhost:8080//catalogo?anyo=2017&mes=07  
 
-##Equipo
+## Equipo
 - Autores principales:
 **José Miguel Benítez**, estudiante de grado en ingeniería Informática. 
 **Marylin Mattos Barros**, estudiante de Máster Oficial Universitario en Gestión de la Información
