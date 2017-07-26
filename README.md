@@ -3,7 +3,7 @@
 
 ## Descripción
 
-Este repositorio contiene  la Api Rest de los reportes  del  proyecto "Sistema automático de clasificación de mensajes intercambiados entre la ciudadanía y el Ayuntamiento de València". A partir de los canales de comunicación del Ayuntamiento de València se ha generado un formato que cualquier consistorio puede adaptar a sus necesidades.
+Este repositorio contiene  la Api Rest que alimenta los reportes  del  proyecto "Sistema automático de clasificación de mensajes intercambiados entre la ciudadanía y el Ayuntamiento de València". A partir de los canales de comunicación del Ayuntamiento de València se ha generado un formato que cualquier consistorio puede adaptar a sus necesidades.
 
 El trabajo realizado se concreta en forma de código fuente  que  está diseñada para operar solamente con el método GET para consultar y leer recursos.
 
