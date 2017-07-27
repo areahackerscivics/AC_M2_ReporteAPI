@@ -1,11 +1,7 @@
 # API REST: REPORTES DEL CLASIFICADOR
 
 
-Àrea Hackers Cívics 2017 [civichackers.cc](http://civichackers.cc)
-
-## Información
-El trabajo que contiene este repositorio se ha desarrollado en el contexto de colaboración entre el Ayuntamiento de València y la Universitat Politècnica de València, en la Càtedra GO. El Àrea Hackers Cívics es el espacio de trabajo colaborativo resultante
-de esta colaboración.
+## Descripción
 
 Este repositorio contiene  la Api Rest que alimenta los reportes  del  proyecto "Sistema automático de clasificación de mensajes intercambiados entre la ciudadanía y el Ayuntamiento de València". A partir de los canales de comunicación del Ayuntamiento de València se ha generado un formato que cualquier consistorio puede adaptar a sus necesidades.
 
@@ -15,12 +11,16 @@ El trabajo realizado se concreta en forma de código fuente  que  está diseñad
 ## Guía de uso
 
 ##### Lenguaje de programación
+<<<<<<< HEAD
 Este módulo fue desarrollado usando **Python 2.7.11**
+=======
+Este módulo fue desearrollado con **Python 2.7.11**
+>>>>>>> c896c5d79e75252a805495181fb3834fe57ec9ad
 
 ##### Dependencias
 
-* [Bottle 0.12.13](http://bottlepy.org/docs/0.12/ "Bottle: Python Web Framework")
-* [Pymongo 3.4.0](https://api.mongodb.com/python/current/ "Pymongo 3.4.0")
+* [Bottle V 0.12.13](http://bottlepy.org/docs/0.12/ "Bottle: Python Web Framework")
+* [Pymongo V 3.4.0](https://api.mongodb.com/python/current/ "Pymongo 3.4.0")
 
 **Nota**: El modulo fue desarrollado usando las librerías que se mencionaron anteriormente, por lo que se recomienda para un adecuado funcionamiento se usen  las versiones establecidas.
 
@@ -100,17 +100,14 @@ Todos los servicios se realizan mediante peticiones GET y requieren de dos pará
 
 
 ## Equipo
-- Autores principales:
-**<a href="https://github.com/xikoto" target="_blank">José Miguel Benítez</a>**, estudiante de grado en ingeniería Informática.
-**<a href="https://www.linkedin.com/in/marylin-mattos-a0a59b22/" target="_blank"> Marylin Mattos Barros</a>**, estudiante de Máster Oficial Universitario en Gestión de la Información
+- Autores principales:  
+  - **<a href="https://github.com/xikoto" target="_blank">José Miguel Benítez</a>**, estudiante de grado en ingeniería Informática.
+  - **<a href="https://www.linkedin.com/in/marylin-mattos-a0a59b22/" target="_blank"> Marylin Mattos Barros</a>**, estudiante de Máster Oficial Universitario en Gestión de la Información
+
 
 - Director del proyecto:
+  - [Diego Álvarez](https://about.me/diegoalsan) | @diegoalsan
 
-  [Diego Álvarez](https://about.me/diegoalsan) | @diegoalsan
-
-- Codirector del proyecto:
-
-  [David Pardo](https://about.me/david_pardo) | @davidpardo
 
 ## Contexto del proyecto
 
