@@ -15,14 +15,14 @@ El trabajo realizado se concreta en forma de código fuente  que  está diseñad
 ## Guía de uso
 
 ##### Lenguaje de programación
-Este módulo fue desearrollado usando **Python 2.7.11**
+Este módulo fue desarrollado usando **Python 2.7.11**
 
 ##### Dependencias
 
 * [Bottle 0.12.13](http://bottlepy.org/docs/0.12/ "Bottle: Python Web Framework")
 * [Pymongo 3.4.0](https://api.mongodb.com/python/current/ "Pymongo 3.4.0")
 
-**Nota**: El modulo fue desarrolloado usando las librerias que se mensionaron anteriormente, por lo que se recomienda para un adecuado funcionamiento se usen  las versiones establecidas.
+**Nota**: El modulo fue desarrollado usando las librerías que se mencionaron anteriormente, por lo que se recomienda para un adecuado funcionamiento se usen  las versiones establecidas.
 
 ##### Base de datos
 
