@@ -11,11 +11,7 @@ El trabajo realizado se concreta en forma de código fuente  que  está diseñad
 ## Guía de uso
 
 ##### Lenguaje de programación
-<<<<<<< HEAD
 Este módulo fue desarrollado usando **Python 2.7.11**
-=======
-Este módulo fue desearrollado con **Python 2.7.11**
->>>>>>> c896c5d79e75252a805495181fb3834fe57ec9ad
 
 ##### Dependencias
 
