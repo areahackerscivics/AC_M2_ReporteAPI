@@ -1,6 +1,6 @@
 *.pyc
 
-conexionMongo.py
+conexionMongobueno.py
 
 *.rdf
 
