@@ -3,3 +3,5 @@
 conexionMongobueno.py
 
 *.json
+
+variables.py

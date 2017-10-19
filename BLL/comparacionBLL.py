@@ -16,12 +16,14 @@ conexion = getConexion()
 client = MongoClient(conexion)
 tdb = getDB()
 db = client[tdb]
-coleccion = getCollTweetsClas()
-tweetsClasificados = db[coleccion]
+coleccionTw = getCollTweetsClas()
+tweetsClasificados = db[coleccionTw]
 
-import sys, os
-import xml.dom.minidom
-from xml.dom.minidom import parse
+coleccionCatalogo = getCatalogo()
+dbCatalogo = db[coleccionCatalogo]
+
+# import xml.dom.minidom
+# from xml.dom.minidom import parse
 
 catColor = {
     "Turismo": "#BF1E2E",
@@ -50,22 +52,21 @@ catColor = {
 
 def getLeyenda(anyo, mes):
     diccTW = getTweet(anyo, mes)
-
     dicDataset = getDataset(anyo, mes)
-
-    categorias = catColor.keys()
+    
+    categoriasC = catColor.keys()
 
     leyenda = []
 
-    for categoria in categorias:
+    for categoria in categoriasC:
         dicCat = {}
         dicCat["Categoria"] = categoria
-        print "categoria"
+
         if diccTW.has_key(categoria):
             dicCat["Tweets"] = str(round(diccTW[categoria],2)) + " %"
         else:
             dicCat["Tweets"] = "0 %"
-        print categoria
+
         if dicDataset.has_key(categoria):
             dicCat["Datasets"] = str(round(dicDataset[categoria],2)) + " %"
         else:
@@ -149,58 +150,59 @@ def getTweet(anyo, mes):
     return diccTW
 
 def getDataset(anyo, mes):
-    dicNombres = {
-        'ciencia tecnologia': "Ciencia y tecnología",
-        'comercio': "Comercio",
-        'cultura ocio': "Cultura y ocio",
-        'demografia': "Demografía",
-        'deporte': "Deporte",
-        'economia': "Economía",
-        'educacion': "Educación",
-        'empleo': "Empleo",
-        'energia': "Energía",
-        'hacienda': "Hacienda",
-        'industria': "Industria",
-        'legislacion justicia': "Legislación y justicia",
-        'medio ambiente': "Medio ambiente",
-        'medio rural': "Medio Rural",
-        'salud': "Salud",
-        'sector publico': "Sector público",
-        'seguridad': "Seguridad",
-        'sociedad bienestar': "Sociedad y bienestar",
-        'transporte': "Transporte",
-        'turismo': "Turismo",
-        'urbanismo infraestructuras': "Urbanismo e infraestructuras",
-        'vivienda': "Vivienda"
-        }
+    try:
+        respuesta = dbCatalogo.find_one({
+                                            "anyo": anyo,
+                                            "mes": mes
+                                            })
+    except Exception as e:
+        print "     ", "- Error en find catalogo: ", type(e), e
 
-    filename = 'catalogo_' + anyo + '_' + mes + '.rdf'
+    datos = respuesta["datos"]
 
-    if os.path.isfile("../FILES/"+filename):
-        DOMTree = xml.dom.minidom.parse('../FILES/'+filename)
-        coleccion = DOMTree.documentElement
-        datasets = coleccion.getElementsByTagName('dcat:dataset')
+    dicNDat = {}
+    for dato in datos:
+        dicNDat[str(dato['categoria'].encode('UTF-8'))] = dato["numDatasets"]
 
-        diccDataset={}
-        for dataset in datasets:
-            temas = dataset.getElementsByTagName('dcat:theme')
-            for tema in temas:
-                url =  tema.getAttribute('rdf:resource')
-                catBruto = (url.split('/'))[-1]
-                categoria = catBruto.replace('-', ' ')
-                diccDataset[categoria] = diccDataset.get(categoria, 0) + 1
+    totalDataset = sum(dicNDat.values())
 
-        totalDataset = sum(diccDataset.values())
+    for categoria,valor in dicNDat.items():
+        if valor == float(0.0):
+            porcentajeCat = 0
+        else:
+            porcentajeCat = (valor/float(totalDataset))*100
 
-        for categoria,valor in diccDataset.items():
-            if valor == 0:
-                porcentaje = 0
-            else:
-                porcentajeDataset = (valor/float(totalDataset))*100
+        dicNDat[categoria]=porcentajeCat
 
-            diccDataset[dicNombres[categoria]]=porcentajeDataset
+    return dicNDat
 
-        return diccDataset
-
-    else:
-        print "Sin datos"
+    # filename = 'catalogo_' + anyo + '_' + mes + '.rdf'
+    #
+    # if os.path.isfile("../FILES/"+filename):
+    #     DOMTree = xml.dom.minidom.parse('../FILES/'+filename)
+    #     coleccion = DOMTree.documentElement
+    #     datasets = coleccion.getElementsByTagName('dcat:dataset')
+    #
+    #     diccDataset={}
+    #     for dataset in datasets:
+    #         temas = dataset.getElementsByTagName('dcat:theme')
+    #         for tema in temas:
+    #             url =  tema.getAttribute('rdf:resource')
+    #             catBruto = (url.split('/'))[-1]
+    #             categoria = catBruto.replace('-', ' ')
+    #             diccDataset[categoria] = diccDataset.get(categoria, 0) + 1
+    #
+    #     totalDataset = sum(diccDataset.values())
+    #
+    #     for categoria,valor in diccDataset.items():
+    #         if valor == 0:
+    #             porcentaje = 0
+    #         else:
+    #             porcentajeDataset = (valor/float(totalDataset))*100
+    #
+    #         diccDataset[dicNombres[categoria]]=porcentajeDataset
+    #
+    #     return diccDataset
+    #
+    # else:
+    #     print "Sin datos"

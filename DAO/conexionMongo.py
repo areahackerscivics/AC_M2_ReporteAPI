@@ -13,6 +13,9 @@ def getConexion():
     return environ.get("RUTA_MONGO")
 
 #
+def getCatalogo():
+    return "catalogo"
+
 def getDB():
     """Método que retorna el nombre de la BD que se está usando.
     """

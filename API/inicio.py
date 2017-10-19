@@ -16,6 +16,7 @@ import bottle
 from bottle import route,run,request, response, static_file
 
 
+from API.variables import *
 from BLL.distribucionBLL import getDistribucionBLL
 from BLL.evolucionBLL import getEvolucionBLL
 from BLL.comparacionBLL import getComparacion, getLeyenda
@@ -244,5 +245,8 @@ def leyenda():
    return dumps(result)
 
 #app.run(port=8080)
-app.run(host='0.0.0.0', port=argv[1])
+try:
+    app.run(host='0.0.0.0', port=argv[1])
+except:
+    app.run(port=8080)
 #bottle.run(host='localhost', port=8080)
