@@ -17,6 +17,7 @@ from bottle import route,run,request, response, static_file
 
 from BLL.distribucionBLL import getDistribucionBLL
 from BLL.evolucionBLL import getEvolucionBLL
+from BLL.comparacionBLL import getComparacion, getLeyenda
 # from BLL.topPalabrasBLL import getTopPalabrasBLL
 # from BLL.topHashtagssBLL import getTopHashtagsBLL
 from BLL.catalogoBLL import getCatalogoBLL
@@ -199,8 +200,47 @@ def descarga():
         return static_file(filename, root='../FILES/', download=filename)
 
 
+@app.route('/comparacion', method='GET')
+@enable_cors
+def comparacion():
+   response.content_type = 'application/json'
+
+   anyo = request.query.anyo
+   mes = request.query.mes
+
+   x = []
+   y = []
+   color = []
 
 
+   x, y, color = getComparacion(anyo, mes)
+
+   result = {
+       "x": x,
+       "y": y,
+       "color": color
+       }
+
+   #result = {
+   #    "x": ['Turismo', 'Industria', 'Empleo', 'Seguridad', 'Hacienda', 'Salud'],
+   #    "y": [-2, 1, 3, 3.17, -3, -2],
+   #    "color": ['#BF1E2E ', '#EF4136 ', '#F25A29 ', '#F8931F ', '#FCB042 ', "#F9EE34 "]
+   #}
+   return dumps(result)
+
+@app.route('/leyenda', method='GET')
+@enable_cors
+def leyenda():
+   response.content_type = 'application/json'
+
+   anyo = request.query.anyo
+   mes = request.query.mes
+
+   result = []
+
+   result = getLeyenda(anyo, mes)
+
+   return dumps(result)
 
 app.run(port=8080)
 #bottle.run(host='localhost', port=8080)

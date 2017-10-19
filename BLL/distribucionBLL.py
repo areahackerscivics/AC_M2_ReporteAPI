@@ -67,6 +67,6 @@ def getDistribucionBLL(anyo, mes):
         else:
             #Se calcula el porcentaje por categoría
             porTweets = (numTweets/float(totalTw))*100
-        result.append( {'categoria': key, 'numTweets': numTweets, 'porTweets': porTweets} )
+        result.append( {'categoria': key, 'Nº Tweets': numTweets, 'porTweets': porTweets} )
 
     return result
