@@ -1,1 +1,1 @@
-web: python ./API/inicio.py
+web: python ./API/inicio.py $PORT

@@ -242,5 +242,6 @@ def leyenda():
 
    return dumps(result)
 
-app.run(port=8080)
+#app.run(port=8080)
+app.run(host='0.0.0.0', port=argv[1])
 #bottle.run(host='localhost', port=8080)
