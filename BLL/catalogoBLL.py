@@ -89,7 +89,7 @@ def getCatalogoBLL(anyo, mes):
     mesAct =  fecha.strftime ("%m")
 
     #Si el fichero existe, lo devuelve.
-    if os.path.isfile("../FILES/"+filename):
+    if os.path.isfile("/FILES/"+filename):
         return calculoCatalogo(filename)
     else:
         if ( anyo==anyoAct and mes==mesAct ):
