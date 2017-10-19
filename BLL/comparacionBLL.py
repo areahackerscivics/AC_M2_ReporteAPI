@@ -60,12 +60,12 @@ def getLeyenda(anyo, mes):
     for categoria in categorias:
         dicCat = {}
         dicCat["Categoria"] = categoria
-
+        print "categoria"
         if diccTW.has_key(categoria):
             dicCat["Tweets"] = str(round(diccTW[categoria],2)) + " %"
         else:
             dicCat["Tweets"] = "0 %"
-
+        print categoria
         if dicDataset.has_key(categoria):
             dicCat["Datasets"] = str(round(dicDataset[categoria],2)) + " %"
         else:
