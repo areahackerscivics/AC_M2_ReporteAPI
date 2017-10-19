@@ -15,8 +15,8 @@ from json import dumps
 import bottle
 from bottle import route,run,request, response, static_file
 
-
-from API.variables import *
+try:
+    from API.variables import *
 from BLL.distribucionBLL import getDistribucionBLL
 from BLL.evolucionBLL import getEvolucionBLL
 from BLL.comparacionBLL import getComparacion, getLeyenda
