@@ -6,7 +6,7 @@ parent_dir=os.getcwd()
 path= os.path.dirname(parent_dir)
 sys.path.append(path)
 
-import pymongo
+from pymongo import MongoClient
 from DAO.conexionMongo import *
 import calendar
 from datetime import datetime
