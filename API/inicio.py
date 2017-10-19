@@ -17,6 +17,8 @@ from bottle import route,run,request, response, static_file
 
 try:
     from API.variables import *
+except:
+    print "Sin variables"
 from BLL.distribucionBLL import getDistribucionBLL
 from BLL.evolucionBLL import getEvolucionBLL
 from BLL.comparacionBLL import getComparacion, getLeyenda
