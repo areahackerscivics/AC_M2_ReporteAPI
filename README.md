@@ -11,7 +11,7 @@ El trabajo realizado se concreta en forma de código fuente  que  está diseñad
 ## Guía de uso
 
 ##### Lenguaje de programación
-Este módulo fue desearrollado con **Python 2.7.11**
+Este módulo fue desarrollado usando **Python 2.7.11**
 
 ##### Dependencias
 
@@ -117,4 +117,4 @@ El [**Àrea Hackers cívics**](http://civichackers.cc) ha sido impulsada por la 
 
 ## Términos de uso
 
-![](https://i.creativecommons.org/l/by-sa/4.0/88x31.png)El contenido de este repositorio está sujeto a la licencia [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/).
+El contenido de este repositorio está sujeto a la licencia [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.en.html). ![](https://www.gnu.org/graphics/gplv3-127x51.png)
