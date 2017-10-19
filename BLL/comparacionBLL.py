@@ -12,13 +12,12 @@ import calendar
 from datetime import datetime
 
 
-client = pymongo.MongoClient("mongodb://admin:admin@ds147072.mlab.com:47072/db_tweets")
-
-try:
-    db = client.get_default_database() # Accedemos a la BD donde tenemos las colecciones
-    tweetsClasificados = db.TWCLASIFICADO
-except:
-    print "Error en DB"
+conexion = getConexion()
+client = MongoClient(conexion)
+tdb = getDB()
+db = client[tdb]
+coleccion = getCollTweetsClas()
+tweetsClasificados = db[coleccion]
 
 import sys, os
 import xml.dom.minidom
