@@ -54,28 +54,8 @@ def getLeyenda(anyo, mes):
     diccTW = getTweet(anyo, mes)
     dicDataset = getDataset(anyo, mes)
 
-    categoriasC = ["Turismo",
-                    "Industria",
-                    "Empleo",
-                    "Seguridad",
-                    "Hacienda",
-                    "Salud",
-                    "Comercio",
-                    "Educación",
-                    "Vivienda",
-                    "Ciencia y tecnología",
-                    "Medio ambiente",
-                    "Economía",
-                    "Transporte",
-                    "Demografía",
-                    "Deporte",
-                    "Energía",
-                    "Urbanismo e infraestructuras",
-                    "Sector público",
-                    "Legislación y justicia",
-                    "Cultura y ocio",
-                    "Sociedad y bienestar",
-                    "Medio Rural"]
+    categoriasC = catColor.keys()
+    categoriasC.sort()
 
     leyenda = []
 

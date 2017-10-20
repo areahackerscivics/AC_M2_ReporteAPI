@@ -23,12 +23,23 @@ dbCatalogo = db[coleccion]
 
 def getCatalogoBLL(anyo, mes):
 
-    try:
-        respuesta = dbCatalogo.find_one({
-                                            "anyo": anyo,
-                                            "mes": mes
-                                            })
-    except Exception as e:
-        print "     ", "- Error en find catalogo: ", type(e), e
+   try:
+       datosM = dbCatalogo.find_one({
+                                           "anyo": anyo,
+                                           "mes": mes
+                                           })
+   except Exception as e:
+       print "     ", "- Error en find catalogo: ", type(e), e
 
-    return respuesta["datos"]
+   respuesta = []
+   datos = datosM["datos"]
+   for dato in datos:
+       dicDato = {}
+       print dato
+
+       dicDato["Categoría"] = str(dato["categoria"].encode('UTF-8'))
+       dicDato["Nº Datasets"] = dato["numDatasets"]
+
+
+       respuesta.append(dicDato)
+   return respuesta
