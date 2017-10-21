@@ -102,4 +102,5 @@ def getTweetsClasificadosdias(anyo, mes):
 
     #Se pasa el contenido a la función de agregación
     tw=tweetsClasificados.aggregate(pipeline)
+
     return list(tw)

@@ -10,6 +10,33 @@ sys.path.append(path)
 import operator
 from DAO.tweetClasificadoDAO import *
 
+catColor = {
+    "Turismo": "#BF1E2E",
+    "Industria": "#EF4136",
+    "Empleo": "#F25A29",
+    "Seguridad": "#F8931F",
+    "Hacienda": "#FCB042",
+    "Salud": "#F9EE35",
+    "Comercio": "#F9EE34",
+    "Educación": "#D8DE24",
+    "Vivienda": "#8DC641",
+    "Ciencia y tecnología": "#272262",
+    "Medio ambiente": "#2B3991",
+    "Economía": "#29AAE3",
+    "Transporte": "#01A79D",
+    "Demografía": "#2BB673",
+    "Deporte": "#016738",
+    "Energía": "#009345",
+    "Urbanismo e infraestructuras": "#3AB54B",
+    "Sector público": "#672D93",
+    "Legislación y justicia": "#92278F",
+    "Cultura y ocio": "#9E1F64",
+    "Sociedad y bienestar": "#DA1C5C",
+    "Medio Rural": "#9B8578"
+    }
+
+
+
 def getEvolucionBLL(anyo, mes):
     """Devuelve la evolución de los tweets a lo largo del mes.
 
@@ -25,12 +52,6 @@ def getEvolucionBLL(anyo, mes):
      porque es lo que se esta esperando como entrada en el Javascript
 
     """
-
-    #Se llama la DAO de los tweets clasificados con los calculos hechos
-    tweets = getTweetsClasificadosdias(anyo, mes)
-
-    #Se inicializa el diccionario con la clave= nombre de la categoría y valor otro
-    #diccionario con el dia del mes y el valor del dia en 0.
     dicc = {
         'Ciencia y tecnología': {
             '01': 0, '02': 0, '03': 0, '04': 0, '05': 0, '06': 0, '07': 0, '08': 0, '09': 0,
@@ -166,28 +187,89 @@ def getEvolucionBLL(anyo, mes):
         }
     }
 
-
-
-    for tweet in tweets:
+    dicSumat = getTweetsClasificadosdias(anyo, mes)
+    for tweet in dicSumat:
         categoria = (str(tweet['categoria'].encode('utf-8')))
         dia=tweet['dia']
         total=tweet['total']
-
-        #se reemplaza en el diccionario el valor de cada día con el que está en
-        #la consulta
+        #se reemplaza en el diccionario el valor de cada día con el que está en la consulta
         dicc[categoria][dia] = total
 
-    result = {}
-    lista=[]
-    keys = dicc.keys()
-    keys.sort()
-    kDias = dicc['Comercio'].keys()
-    kDias.sort()
-    for categoria in keys:
-        listaDias = []
-        for dia in kDias:
-            #Se añade el valor (# de tweets x dias) a la lista de dias
-            listaDias.append( dicc[categoria][dia] )
-        result[categoria]=listaDias
+    categoriasLista = dicc.keys()
+    diasLista = dicc["Comercio"].keys()
+    categoriasLista.sort()
+    diasLista.sort()
 
-    return result
+    listaRes = []
+    listaColor = []
+    for categoria in categoriasLista:
+        listaTemp = []
+        listaTemp.append(categoria)
+        for dia in diasLista:
+            listaTemp.append(dicc[categoria][dia])
+
+        listaRes.append(listaTemp)
+        listaColor.append(catColor[categoria])
+
+    resultado ={}
+    resultado["resultado"]= listaRes
+    resultado["color"]= listaColor
+    return resultado
+
+
+
+
+
+    # mesVacio = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    #
+    # dicCat = {}
+    # listaMes=[]
+    # for dato in dicSumat:
+    #     listaMes=[]
+    #     categoria = (str(dato['categoria'].encode('utf-8')))
+    #     pos = int(dato['dia'])-1
+    #     total = int(dato['total'])
+    #     print listaMes
+    #     print dato
+    #     if dicCat.has_key(categoria): #Repe
+    #         listaMes = dicCat[categoria]
+    #         print listaMes
+    #         listaMes.pop(pos)
+    #         print listaMes
+    #         listaMes.insert(pos, total)
+    #         print listaMes
+    #         dicCat[categoria] = listaMes
+    #     else: #Nuevo
+    #         listaMes = mesVacio
+    #         print "Vacio: ", mesVacio
+    #         print listaMes
+    #         listaMes.pop(pos)
+    #         listaMes.insert(pos, total)
+    #         dicCat[categoria] = listaMes
+    #
+    #     print dicCat
+    #
+    #
+    # print dicCat
+    # categoriasC = catColor.keys()
+    # categoriasC.sort()
+    #
+    # respuesta = []
+    # for categoria in categoriasC:
+    #     arrayCat =[]
+    #     arrayCat.append(categoria)
+    #     if dicCat.has_key(categoria):
+    #         arrayCat.extend(dicCat[categoria])
+    #     else:
+    #         arrayCat.extend(mesVacio)
+    #     respuesta.append(arrayCat)
+    #
+    # resultado ={}
+    # resultado["resultado"]= respuesta
+    #
+    # resultado = {"resultado": [
+    # ["Turismo", 1, 0, 1, 2, 3, 2, 0, 2, 1, 0, 0, 0, 3, 2, 0, 3, 1, 0, 1, 1, 0, 0, 2, 0, 3, 2, 1, 1, 0, 0, 0],
+    # ["Industria", 0, 0, 0, 0, 0, 0, 4, 0, 0, 1, 0, 0, 2, 3, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 4, 2, 0, 0, 1, 0],
+    # ["Empleo", 0, 1, 0, 0, 4, 2, 3, 1, 0, 2, 0, 0, 1, 3, 1, 1, 1, 0, 0, 3, 2, 0, 2, 1, 0, 0, 0, 3, 0, 0, 0]
+    # ]}
+    # return resultado
