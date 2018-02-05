@@ -14,12 +14,12 @@ def getConexion():
 
 #
 def getCatalogo():
-    return "catalogo"
+    return "CATALOGO"
 
 def getDB():
     """Método que retorna el nombre de la BD que se está usando.
     """
-    return 'db_tweets'
+    return 'db_tweets2018'
 
 def getCollTweetsClas():
     """Devuelve el nombre de la colección Tweets Clasificados.
