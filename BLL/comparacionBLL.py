@@ -189,7 +189,7 @@ def getDataset(anyo, mes):
     }
     for dato in datos:
         try:
-            categoriaM=dicMayToMin[dato['categoria']]
+            categoriaM=dicMayToMin[dato['categoria'].encode('UTF-8')]
         except:
             pass
         dicNDat[categoriaM] = dato["numDatasets"]

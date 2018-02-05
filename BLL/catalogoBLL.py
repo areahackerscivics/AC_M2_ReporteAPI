@@ -42,4 +42,3 @@ def getCatalogoBLL(anyo, mes):
 
        respuesta.append(dicDato)
    return respuesta
-print(getCatalogoBLL("2018", "01"))
