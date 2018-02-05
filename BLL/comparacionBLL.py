@@ -160,10 +160,39 @@ def getDataset(anyo, mes):
         print "     ", "- Error en find catalogo: ", type(e), e
 
     datos = respuesta["datos"]
+    #print datos
 
     dicNDat = {}
+    dicMayToMin={
+    'ciencia tecnologia':'Ciencia y tecnología',
+    'comercio':'Comercio',
+    'cultura ocio':'Cultura y ocio',
+    'demografia':'Demografía',
+    'deporte':'Deporte',
+    'economia':'Economía',
+    'educacion':'Educación',
+    'empleo':'Empleo',
+    'energia':'Energía',
+    'hacienda':'Hacienda',
+    'industria':'Industria',
+    'legislacion justicia':'Legislación y justicia',
+    'medio ambiente':'Medio ambiente',
+    'medio rural':'Medio Rural',
+    'salud':'Salud',
+    'sector publico':'Sector público',
+    'seguridad':'Seguridad',
+    'sociedad bienestar':'Sociedad y bienestar',
+    'transporte':'Transporte',
+    'turismo':'Turismo',
+    'urbanismo infraestructuras':'Urbanismo e infraestructuras',
+    'vivienda':'Vivienda'
+    }
     for dato in datos:
-        dicNDat[str(dato['categoria'].encode('UTF-8'))] = dato["numDatasets"]
+        try:
+            categoriaM=dicMayToMin[dato['categoria']]
+        except:
+            pass
+        dicNDat[categoriaM] = dato["numDatasets"]
 
     totalDataset = sum(dicNDat.values())
 
@@ -174,36 +203,7 @@ def getDataset(anyo, mes):
             porcentajeCat = (valor/float(totalDataset))*100
 
         dicNDat[categoria]=porcentajeCat
+        #dicNDat.replace('ciencia tecnologia','Ciencia y tecnología')
+    #dicNDat.update({'ciencia tecnologia': 'Ciencia y tecnología'})
 
     return dicNDat
-
-    # filename = 'catalogo_' + anyo + '_' + mes + '.rdf'
-    #
-    # if os.path.isfile("../FILES/"+filename):
-    #     DOMTree = xml.dom.minidom.parse('../FILES/'+filename)
-    #     coleccion = DOMTree.documentElement
-    #     datasets = coleccion.getElementsByTagName('dcat:dataset')
-    #
-    #     diccDataset={}
-    #     for dataset in datasets:
-    #         temas = dataset.getElementsByTagName('dcat:theme')
-    #         for tema in temas:
-    #             url =  tema.getAttribute('rdf:resource')
-    #             catBruto = (url.split('/'))[-1]
-    #             categoria = catBruto.replace('-', ' ')
-    #             diccDataset[categoria] = diccDataset.get(categoria, 0) + 1
-    #
-    #     totalDataset = sum(diccDataset.values())
-    #
-    #     for categoria,valor in diccDataset.items():
-    #         if valor == 0:
-    #             porcentaje = 0
-    #         else:
-    #             porcentajeDataset = (valor/float(totalDataset))*100
-    #
-    #         diccDataset[dicNombres[categoria]]=porcentajeDataset
-    #
-    #     return diccDataset
-    #
-    # else:
-    #     print "Sin datos"

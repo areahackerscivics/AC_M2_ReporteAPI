@@ -35,7 +35,6 @@ def getCatalogoBLL(anyo, mes):
    datos = datosM["datos"]
    for dato in datos:
        dicDato = {}
-       print dato
 
        dicDato["Categoría"] = str(dato["categoria"].encode('UTF-8'))
        dicDato["Nº Datasets"] = dato["numDatasets"]
@@ -43,3 +42,4 @@ def getCatalogoBLL(anyo, mes):
 
        respuesta.append(dicDato)
    return respuesta
+print(getCatalogoBLL("2018", "01"))
